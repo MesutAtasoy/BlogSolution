@@ -66,9 +66,8 @@ Launch Gateway Api with http://localhost:5000
 - RabbitMQ implemantation
 - Logging 
 - Monitoring
-- Service Registry with Consul
-- Health Check
 - UI implemantation
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/MesutAtasoy/BlogSolution/blob/master/LICENSE)
 file for details.
