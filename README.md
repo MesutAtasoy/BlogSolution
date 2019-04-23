@@ -61,6 +61,14 @@ Launch Gateway Api with http://localhost:5000
 
 **useCustomizationData** : If sets true, Custom initial data is added to database.
 
+
+## Road Map
+- RabbitMQ implemantation
+- Logging 
+- Monitoring
+- Service Registry with Consul
+- Health Check
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/MesutAtasoy/BlogSolution/blob/master/LICENSE)
 file for details.
