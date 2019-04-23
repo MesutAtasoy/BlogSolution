@@ -1,6 +1,6 @@
 # Blog Solution
 
-Blog Solution is simple application which implemented different approaches within each microservice (DDD, CQRS, Simple CRUD). 
+Blog Solution is container based application which implemented different approaches within each microservice (DDD, CQRS, Simple CRUD). 
 
 ## Technologies
 - .Net Core 2.2 
