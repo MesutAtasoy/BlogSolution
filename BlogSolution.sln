@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stats.Application", "Stats\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stats.Domain", "Stats\Stats.Domain\Stats.Domain.csproj", "{3749A7E8-E90E-4C4E-BE46-A880E17D481A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stats.Api", "Stats\Stats.Api\Stats.Api.csproj", "{C1D2ED1C-0B93-4681-85EE-DE2E3CC1B9E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stats.Api", "Stats\Stats.Api\Stats.Api.csproj", "{C1D2ED1C-0B93-4681-85EE-DE2E3CC1B9E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{75CFB644-8493-43C1-A8EC-C4278713D142}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
