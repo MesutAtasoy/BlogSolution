@@ -38,6 +38,7 @@ namespace Stats.Application.Repositories
                 statsItem = await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
                 statsItem.Comments.Add(new Comment
                 {
+                    Id = Guid.NewGuid(),
                     UserId = userId,
                     CommentText = comment.Comment,
                     CreateDate = DateTime.UtcNow
@@ -48,10 +49,12 @@ namespace Stats.Application.Repositories
             {
                 statsItem = new BlogStatsItem
                 {
+                    Id = Guid.NewGuid(),
                     PostId = comment.PostId
                 };
                 statsItem.Comments.Add(new Comment
                 {
+                    Id = Guid.NewGuid(),
                     UserId = userId,
                     CommentText = comment.Comment,
                     CreateDate = DateTime.UtcNow
@@ -76,6 +79,7 @@ namespace Stats.Application.Repositories
             {
                 statsItem = new BlogStatsItem
                 {
+                    Id = Guid.NewGuid(),
                     PostId = comment.PostId
                 };
                 statsItem.Favorites.Add(new Favorite { Id = Guid.NewGuid(), UserId = userId });
