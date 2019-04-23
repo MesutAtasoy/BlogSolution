@@ -1,14 +1,17 @@
 # Blog Solution
 
-Blog Solution is simple application which implemented different approaches within each microservice (DDD, CQRS, Simple Crud). 
+Blog Solution is simple application which implemented different approaches within each microservice (DDD, CQRS, Simple CRUD). 
 
 ## Technologies
 - .Net Core 2.2 
 - Entity Framework Core 2.2.3
+- Mongo
 - Mediatr
 - Automapper
 - Autofac
 - FluentValidation
+- Ocelot Api Gateway
+- Autofac
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/MesutAtasoy/BlogSolution/blob/master/LICENSE)
