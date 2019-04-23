@@ -22,7 +22,7 @@ namespace Stats.Api.Controllers
         [HttpPost("Favorite")]
         public async Task<IActionResult> Favorite([FromBody]CommentRequestModel requestModel) => Ok(await _blogStatsItemRepository.FavoritePostAsync(requestModel));
 
-        [HttpPost("GetComments/{Id}")]
+        [HttpGet("GetComments/{Id}")]
         public async Task<IActionResult> GetComments(Guid Id) => Ok(await _blogStatsItemRepository.GetStatsByBlogId(Id));
     }
 }
