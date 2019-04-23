@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BlogSolution.Framework\BlogSolution.Framework.csproj" />
+    <ProjectReference Include="..\Stats.Application\Stats.Application.csproj" />
+    <ProjectReference Include="..\Stats.Domain\Stats.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

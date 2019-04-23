@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BlogSolution.Framework\BlogSolution.Framework.csproj" />
+    <ProjectReference Include="..\Stats.Domain\Stats.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,41 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/{version}/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "blog.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/blog/api/{version}/{everything}",
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-api-key",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/{version}/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "stats.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/stats/api/{version}/{everything}",
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-api-key",
+        "AllowedScopes": []
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration"
+  }
+}
+

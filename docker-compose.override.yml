@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+
+  sql.data:
+      environment:
+        - SA_PASSWORD=15961596+Abc
+        - ACCEPT_EULA=Y
+      ports:
+        - "1433:1433" 
+  
+  nosql.data:
+    ports:
+      - "27017:27017"
+
+  identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5001:80"
+
+  blog.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5002:80"
+
+  stats.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5003:80"
+
+  gateway.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityUrl=http://identity.api 
+    ports:
+      - "5000:80"
+
+
+

@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest
+
+  nosql.data:
+    image: mongo
+
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: Identity/Identity.Api/Dockerfile
+    depends_on:
+      - sql.data
+
+  blog.api:
+    image: ${DOCKER_REGISTRY-}blogapi
+    build:
+      context: .
+      dockerfile: Blog/Blog.Api/Dockerfile
+    depends_on:
+      - sql.data
+
+  stats.api:
+    image: ${DOCKER_REGISTRY-}statsapi
+    build:
+      context: .
+      dockerfile: Stats/Stats.Api/Dockerfile
+    depends_on:
+       - nosql.data
+  
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: Gateway/Gateway.Api/Dockerfile
+    depends_on:
+      - sql.data
+      - identity.api
+      - blog.api
+
+
+ 
+
+ 
+

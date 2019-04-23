@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.0" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Core">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.core\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Collection.EntityFrameworkCore" Version="0.2.0" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Persistance\Blog.Persistance.csproj" />
+  </ItemGroup>
+
+</Project>
