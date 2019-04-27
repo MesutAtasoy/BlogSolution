@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Blog.Application.Dtos;
 using Blog.Persistance;
-using BlogSolution.Framework.Types;
+using BlogSolution.Types;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

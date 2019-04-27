@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Exceptions;
+﻿using BlogSolution.Types.Exceptions;
 using FluentValidation;
 using MediatR;
 using System.Linq;

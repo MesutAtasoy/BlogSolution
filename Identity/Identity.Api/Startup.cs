@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using BlogSolution.Framework.Authentication;
-using BlogSolution.Framework.Context;
-using BlogSolution.Framework.Initializers;
-using BlogSolution.Framework.Mvc;
-using BlogSolution.Framework.Options;
+using BlogSolution.Authentication;
+using BlogSolution.Context;
+using BlogSolution.Mvc;
+using BlogSolution.Types.Settings;
+using BlogSolution.Shared.Options;
 using Identity.Application.Modules;
 using Identity.Application.Settings;
 using Identity.Persistance;
@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using BlogSolution.Shared.Initializers;
 
 namespace Identity.Api
 {

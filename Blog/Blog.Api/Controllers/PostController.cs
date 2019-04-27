@@ -2,7 +2,6 @@
 using Blog.Application.Posts.Commands.DeletePost;
 using Blog.Application.Posts.Commands.UpdatePost;
 using Blog.Application.Posts.Queries;
-using Identity.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

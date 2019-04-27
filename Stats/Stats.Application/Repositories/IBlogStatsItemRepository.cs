@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Types;
+﻿using BlogSolution.Types;
 using Stats.Application.Models;
 using Stats.Domain.Models;
 using System;

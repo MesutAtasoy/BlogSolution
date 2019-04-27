@@ -1,15 +1,16 @@
-﻿using BlogSolution.Framework.Mongo;
+﻿using BlogSolution.Mongo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Autofac.Extensions.DependencyInjection;
 using System;
-using BlogSolution.Framework.Authentication;
-using BlogSolution.Framework.Mvc;
-using BlogSolution.Framework.Options;
+using BlogSolution.Authentication;
+using BlogSolution.Mvc;
 using Stats.Application.Modules;
 using Autofac;
+using BlogSolution.Types.Settings;
+using BlogSolution.Shared.Options;
 
 namespace Stats.Api
 {

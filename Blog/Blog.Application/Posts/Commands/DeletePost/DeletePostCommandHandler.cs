@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Persistance;
-using BlogSolution.Framework.Types;
+using BlogSolution.Types;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

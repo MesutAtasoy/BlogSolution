@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BlogSolution.Framework\BlogSolution.Framework.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.Mongo\BlogSolution.Mongo.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.Mvc\BlogSolution.Mvc.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.Shared\BlogSolution.Shared.csproj" />
     <ProjectReference Include="..\Stats.Application\Stats.Application.csproj" />
     <ProjectReference Include="..\Stats.Domain\Stats.Domain.csproj" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlogSolution.Framework.Types;
+using BlogSolution.Types;
 
 namespace Stats.Domain.Models
 {

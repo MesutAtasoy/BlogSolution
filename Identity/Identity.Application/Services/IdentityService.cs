@@ -1,8 +1,4 @@
 ﻿using System.Threading.Tasks;
-using BlogSolution.Framework.Authentication.Handlers;
-using BlogSolution.Framework.Password;
-using BlogSolution.Framework.Types;
-using BlogSolution.Framework.Exceptions;
 using Identity.Application.Contracts;
 using Identity.Application.Models;
 using Identity.Domain.Models;
@@ -12,6 +8,10 @@ using System.Net;
 using System;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using BlogSolution.Authentication.Handlers;
+using BlogSolution.Types;
+using BlogSolution.Types.Exceptions;
+using BlogSolution.Authentication.Password;
 
 namespace Identity.Application.Services
 {

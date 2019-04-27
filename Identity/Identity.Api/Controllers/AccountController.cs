@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Authentication.Attributes;
+﻿using BlogSolution.Authentication.Attributes;
 using Identity.Application.Contracts;
 using Identity.Application.Models;
 using Microsoft.AspNetCore.Authorization;

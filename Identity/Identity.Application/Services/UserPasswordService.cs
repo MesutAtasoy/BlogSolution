@@ -1,5 +1,4 @@
-﻿using BlogSolution.Framework.Types;
-using BlogSolution.Framework.Exceptions;
+﻿using BlogSolution.Types;
 using Identity.Application.Contracts;
 using Identity.Domain.Models;
 using Identity.Persistance;
@@ -7,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using BlogSolution.Types.Exceptions;
 
 namespace Identity.Application.Services
 {

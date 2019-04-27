@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Blog.Application.Categories.Queries;
-using Identity.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

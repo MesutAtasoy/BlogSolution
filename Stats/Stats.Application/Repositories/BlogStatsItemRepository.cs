@@ -1,5 +1,5 @@
-﻿using BlogSolution.Framework.Mongo;
-using BlogSolution.Framework.Types;
+﻿using BlogSolution.Mongo;
+using BlogSolution.Types;
 using Microsoft.AspNetCore.Http;
 using Stats.Application.Models;
 using Stats.Domain.Models;

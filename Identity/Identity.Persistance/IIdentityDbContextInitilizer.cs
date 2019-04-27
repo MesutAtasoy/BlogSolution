@@ -1,5 +1,6 @@
-﻿using BlogSolution.Framework.Context;
-using BlogSolution.Framework.Initializers;
+﻿
+
+using BlogSolution.Shared.Initializers;
 
 namespace Identity.Persistance
 {

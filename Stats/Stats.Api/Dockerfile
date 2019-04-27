@@ -5,8 +5,12 @@ EXPOSE 80
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["Stats/Stats.Api/Stats.Api.csproj", "Stats/Stats.Api/"]
-COPY ["BlogSolution.Framework/BlogSolution.Framework.csproj", "BlogSolution.Framework/"]
+COPY ["Framework/BlogSolution.Mvc/BlogSolution.Mvc.csproj", "Framework/BlogSolution.Mvc/"]
+COPY ["Framework/BlogSolution.Types/BlogSolution.Types.csproj", "Framework/BlogSolution.Types/"]
+COPY ["Framework/BlogSolution.Shared/BlogSolution.Shared.csproj", "Framework/BlogSolution.Shared/"]
 COPY ["Stats/Stats.Domain/Stats.Domain.csproj", "Stats/Stats.Domain/"]
+COPY ["Framework/BlogSolution.Mongo/BlogSolution.Mongo.csproj", "Framework/BlogSolution.Mongo/"]
+COPY ["Framework/BlogSolution.Authentication/BlogSolution.Authentication.csproj", "Framework/BlogSolution.Authentication/"]
 COPY ["Stats/Stats.Application/Stats.Application.csproj", "Stats/Stats.Application/"]
 RUN dotnet restore "Stats/Stats.Api/Stats.Api.csproj"
 COPY . .
