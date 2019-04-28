@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.Models;
-using BlogSolution.Framework.Options;
+using BlogSolution.Types.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;

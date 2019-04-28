@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Identity.Application.Contracts;
+using Identity.Application.IntegrationEvents;
 using Identity.Application.Services;
 
 namespace Identity.Application.Modules
@@ -30,6 +31,15 @@ namespace Identity.Application.Modules
                .As<IUserPasswordService>()
                .InstancePerLifetimeScope();
 
+            RegisterIntegrationEvents(builder);
+        }
+
+
+        private void RegisterIntegrationEvents(ContainerBuilder builder)
+        {
+            builder.RegisterType<IdentityIntegrationEventService>()
+               .As<IIdentityIntegrationEventService>()
+               .InstancePerLifetimeScope();
         }
     }
 }

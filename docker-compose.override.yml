@@ -13,6 +13,11 @@ services:
     ports:
       - "27017:27017"
 
+  rabbitmq:
+    ports:
+      - "5672:5672"    
+      - "15672:15672"
+
   identity.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -31,12 +36,21 @@ services:
     ports:
       - "5003:80"
 
+  notification.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5004:80"
+
   gateway.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityUrl=http://identity.api 
     ports:
       - "5000:80"
+
+
+
 
 
 

@@ -1,4 +1,5 @@
-﻿using BlogSolution.Framework.Initializers;
+﻿
+using BlogSolution.Shared.Initializers;
 
 namespace Blog.Persistance
 {

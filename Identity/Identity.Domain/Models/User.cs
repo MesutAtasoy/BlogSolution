@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Types;
+﻿using BlogSolution.Types;
 using System.Collections.Generic;
 
 namespace Identity.Domain.Models

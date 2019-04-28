@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Authentication.Attributes;
+﻿using BlogSolution.Authentication.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Api.Controllers

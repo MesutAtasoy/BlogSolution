@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using BlogSolution.Framework.Mongo;
+using BlogSolution.Mongo;
 using Stats.Application.Repositories;
 using Stats.Domain.Models;
 

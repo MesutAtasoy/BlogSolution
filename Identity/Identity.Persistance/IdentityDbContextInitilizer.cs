@@ -1,5 +1,6 @@
-﻿using BlogSolution.Framework.Options;
-using BlogSolution.Framework.Password;
+﻿
+using BlogSolution.Authentication.Password;
+using BlogSolution.Types.Settings;
 using Identity.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

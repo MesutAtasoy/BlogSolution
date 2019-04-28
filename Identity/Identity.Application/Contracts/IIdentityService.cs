@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Types;
+﻿using BlogSolution.Types;
 using Identity.Application.Models;
 using System.Threading.Tasks;
 

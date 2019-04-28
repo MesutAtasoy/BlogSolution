@@ -1,4 +1,4 @@
-﻿using BlogSolution.Framework.Types;
+﻿using BlogSolution.Types;
 using MediatR;
 using System;
 using System.Collections.Generic;

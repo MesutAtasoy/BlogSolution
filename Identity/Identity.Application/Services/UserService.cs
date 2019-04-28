@@ -1,5 +1,5 @@
-﻿using BlogSolution.Framework.Types;
-using BlogSolution.Framework.Exceptions;
+﻿using BlogSolution.Types;
+using BlogSolution.Types.Exceptions;
 using Identity.Application.Contracts;
 using Identity.Domain.Models;
 using Identity.Persistance;

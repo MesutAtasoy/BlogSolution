@@ -2,8 +2,8 @@
 using Blog.Application.Dtos;
 using Blog.Domain.Models;
 using Blog.Persistance;
-using BlogSolution.Framework.Helpers;
-using BlogSolution.Framework.Types;
+using BlogSolution.Shared.Helpers;
+using BlogSolution.Types;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
