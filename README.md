@@ -14,7 +14,7 @@ Blog Solution is container based application which implemented different approac
 - Autofac
 
 ## Architecture overview
-![alt text](https://github.com/MesutAtasoy/BlogSolution/blob/master/Docs/Architecture.png)
+![alt text](https://github.com/MesutAtasoy/BlogSolution/blob/Develop/Docs/Architecture%20.png)
 
 - **Gateway Api** : The api routes requests to microservices. Ocelot Api gateway is used. 
 - **Blog Api** : Simple Crud operations for Blog's post, category. Mediatr is used. It supports commands and queries.
