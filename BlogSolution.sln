@@ -41,17 +41,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{75CFB644-8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8EC02289-8983-4A0A-BACB-0CBEE9F76F35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSolution.Authentication", "Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj", "{0AC63FE1-542C-43E4-9E35-84B0420323F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.Authentication", "Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj", "{0AC63FE1-542C-43E4-9E35-84B0420323F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSolution.Context", "Framework\BlogSolution.Context\BlogSolution.Context.csproj", "{D5D22143-9431-404E-B645-EDF4F4E1033E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.Context", "Framework\BlogSolution.Context\BlogSolution.Context.csproj", "{D5D22143-9431-404E-B645-EDF4F4E1033E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSolution.Mongo", "Framework\BlogSolution.Mongo\BlogSolution.Mongo.csproj", "{2907FDA4-8F36-43F4-A244-7CFC3ACDF7DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.Mongo", "Framework\BlogSolution.Mongo\BlogSolution.Mongo.csproj", "{2907FDA4-8F36-43F4-A244-7CFC3ACDF7DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSolution.Types", "Framework\BlogSolution.Types\BlogSolution.Types.csproj", "{11A82883-EF99-45FD-89EC-0E0745C60A46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.Types", "Framework\BlogSolution.Types\BlogSolution.Types.csproj", "{11A82883-EF99-45FD-89EC-0E0745C60A46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSolution.Mvc", "Framework\BlogSolution.Mvc\BlogSolution.Mvc.csproj", "{AB0C75CA-4532-4761-9BB2-DED9EEC2A10F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.Mvc", "Framework\BlogSolution.Mvc\BlogSolution.Mvc.csproj", "{AB0C75CA-4532-4761-9BB2-DED9EEC2A10F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSolution.Shared", "Framework\BlogSolution.Shared\BlogSolution.Shared.csproj", "{6EB8025F-E232-4088-A0F6-96AD09A940F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.Shared", "Framework\BlogSolution.Shared\BlogSolution.Shared.csproj", "{6EB8025F-E232-4088-A0F6-96AD09A940F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.EventBus", "Framework\BlogSolution.EventBus\BlogSolution.EventBus.csproj", "{163EA723-6314-42B4-AF12-36654CEDAFE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSolution.EventBusRabbitMQ", "Framework\BlogSolution.EventBusRabbitMQ\BlogSolution.EventBusRabbitMQ.csproj", "{ED69DDCA-CC91-4E17-974B-7D98D8B19249}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{5A8C158F-5970-40DC-B16E-DD5B8F28578C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Api", "Notification\Notification.Api\Notification.Api.csproj", "{96E226D3-5AC0-4360-BF85-6D7A3318EBFA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Application", "Notification\Notification.Application\Notification.Application.csproj", "{EB3B4F9A-78BD-4F45-B16A-A4C48AEB1D88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +145,22 @@ Global
 		{6EB8025F-E232-4088-A0F6-96AD09A940F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EB8025F-E232-4088-A0F6-96AD09A940F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EB8025F-E232-4088-A0F6-96AD09A940F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{163EA723-6314-42B4-AF12-36654CEDAFE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{163EA723-6314-42B4-AF12-36654CEDAFE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{163EA723-6314-42B4-AF12-36654CEDAFE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{163EA723-6314-42B4-AF12-36654CEDAFE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED69DDCA-CC91-4E17-974B-7D98D8B19249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED69DDCA-CC91-4E17-974B-7D98D8B19249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED69DDCA-CC91-4E17-974B-7D98D8B19249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED69DDCA-CC91-4E17-974B-7D98D8B19249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E226D3-5AC0-4360-BF85-6D7A3318EBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E226D3-5AC0-4360-BF85-6D7A3318EBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E226D3-5AC0-4360-BF85-6D7A3318EBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E226D3-5AC0-4360-BF85-6D7A3318EBFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3B4F9A-78BD-4F45-B16A-A4C48AEB1D88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3B4F9A-78BD-4F45-B16A-A4C48AEB1D88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3B4F9A-78BD-4F45-B16A-A4C48AEB1D88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3B4F9A-78BD-4F45-B16A-A4C48AEB1D88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +184,10 @@ Global
 		{11A82883-EF99-45FD-89EC-0E0745C60A46} = {8EC02289-8983-4A0A-BACB-0CBEE9F76F35}
 		{AB0C75CA-4532-4761-9BB2-DED9EEC2A10F} = {8EC02289-8983-4A0A-BACB-0CBEE9F76F35}
 		{6EB8025F-E232-4088-A0F6-96AD09A940F4} = {8EC02289-8983-4A0A-BACB-0CBEE9F76F35}
+		{163EA723-6314-42B4-AF12-36654CEDAFE3} = {8EC02289-8983-4A0A-BACB-0CBEE9F76F35}
+		{ED69DDCA-CC91-4E17-974B-7D98D8B19249} = {8EC02289-8983-4A0A-BACB-0CBEE9F76F35}
+		{96E226D3-5AC0-4360-BF85-6D7A3318EBFA} = {5A8C158F-5970-40DC-B16E-DD5B8F28578C}
+		{EB3B4F9A-78BD-4F45-B16A-A4C48AEB1D88} = {5A8C158F-5970-40DC-B16E-DD5B8F28578C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46466BDD-35AD-42A6-8873-626CE146DC2D}

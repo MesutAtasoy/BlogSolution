@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using BlogSolution.Shared.Initializers;
+using BlogSolution.EventBusRabbitMQ;
 
 namespace Identity.Api
 {
@@ -47,6 +48,8 @@ namespace Identity.Api
                             .AllowCredentials());
             });
 
+            services.AddIntegrationServices();
+            services.AddEventBus();
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ApplicationModule());
             builder.RegisterModule(new ValidatorModule());

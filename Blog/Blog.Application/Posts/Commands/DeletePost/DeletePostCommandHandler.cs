@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Blog.Application.IntegrationEvents;
+using Blog.Application.IntegrationEvents.Events;
 using Blog.Persistance;
 using BlogSolution.Types;
 using MediatR;
@@ -15,14 +17,14 @@ namespace Blog.Application.Posts.Commands.DeletePost
     {
 
         private readonly BlogDbContext _context;
-        private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IBlogIntegrationEventService _blogIntegrationEventService;
 
-        public DeletePostCommandHandler(BlogDbContext context, IMediator mediator, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        public DeletePostCommandHandler(BlogDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, IBlogIntegrationEventService blogIntegrationEventService)
         {
             _context = context;
-            _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
+            _blogIntegrationEventService = blogIntegrationEventService;
         }
 
         public async Task<ApiBaseResponse> Handle(DeletePostCommand request, CancellationToken cancellationToken)
@@ -40,6 +42,9 @@ namespace Blog.Application.Posts.Commands.DeletePost
             post.UpdatedBy = userId;
             post.UpdatedDate = DateTime.UtcNow;
             _context.SaveChanges();
+
+            var @event = new PostDeletedIntegrationEvent(post.Id);
+            _blogIntegrationEventService.PublishEventBusAsync(@event);
 
             return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success);
         }

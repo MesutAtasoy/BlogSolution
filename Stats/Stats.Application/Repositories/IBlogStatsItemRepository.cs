@@ -12,5 +12,6 @@ namespace Stats.Application.Repositories
         Task<List<BlogStatsItem>> GetStatsByBlogId(Guid postId);
         Task<ApiBaseResponse> CommentPostAsync(CommentRequestModel comment);
         Task<ApiBaseResponse> FavoritePostAsync(CommentRequestModel comment);
+        Task DeletePost(Guid postId);
     }
 }

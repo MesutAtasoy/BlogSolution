@@ -9,6 +9,8 @@ namespace Stats.Domain.Models
         public Guid Id { get; set; }
         public Guid PostId { get; set; }
         public int FavouriteCount { get; set; }
+        public int CommentCount { get; set; }
+
         public List<Comment> Comments { get; set; }
         public List<Favorite> Favorites { get; set; }
 

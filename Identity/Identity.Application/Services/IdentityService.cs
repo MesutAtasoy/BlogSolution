@@ -12,6 +12,8 @@ using BlogSolution.Authentication.Handlers;
 using BlogSolution.Types;
 using BlogSolution.Types.Exceptions;
 using BlogSolution.Authentication.Password;
+using Identity.Application.IntegrationEvents;
+using Identity.Application.IntegrationEvents.Events;
 
 namespace Identity.Application.Services
 {
@@ -22,14 +24,21 @@ namespace Identity.Application.Services
         private readonly IJwtHandler _jwtHandler;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IdentitySettings _identitySettings;
+        private readonly IIdentityIntegrationEventService _identityIntegrationService;
 
-        public IdentityService(IUserService userService, IJwtHandler jwtHandler, IOptions<IdentitySettings> options, IHttpContextAccessor httpContextAccessor,IUserPasswordService userPasswordService)
+        public IdentityService(IUserService userService, 
+                               IJwtHandler jwtHandler, 
+                               IOptions<IdentitySettings> options, 
+                               IHttpContextAccessor httpContextAccessor,
+                               IUserPasswordService userPasswordService,
+                               IIdentityIntegrationEventService identityIntegrationService)
         {
             _userService = userService;
             _userPasswordService = userPasswordService;
             _jwtHandler = jwtHandler;
             _identitySettings = options.Value;
             _httpContextAccessor = httpContextAccessor;
+            _identityIntegrationService = identityIntegrationService;
         }
 
         public async Task<ApiBaseResponse> LoginAsync(LoginRequestModel requestModel)
@@ -110,15 +119,11 @@ namespace Identity.Application.Services
 
         public async Task<ApiBaseResponse> ForgatPasswordAsync(ForgotPasswordRequestModel requestModel)
         {
-            
-
             var user = await _userService.FindByEmailAsync(requestModel.Email);
             if (user == null) return new ApiBaseResponse(System.Net.HttpStatusCode.BadRequest, ApplicationStatusCode.AnErrorHasOccured, null, "The user is not found.");
             if (!user.IsActive || user.IsDeleted) return new ApiBaseResponse(System.Net.HttpStatusCode.BadRequest, ApplicationStatusCode.AnErrorHasOccured, null, "The user is not found.");
-
-          
-
-            var oldPasswordRequests =  _userPasswordService.FindBy(user.Id).Where(c=>c.IsActive == true);
+            
+            var oldPasswordRequests = _userPasswordService.FindBy(user.Id).Where(c => c.IsActive == true);
 
             foreach (var oldPasswordRequest in oldPasswordRequests)
             {
@@ -141,7 +146,8 @@ namespace Identity.Application.Services
                 IsActive = true,
             });
 
-            // ToDo Notification Api Implementation. Message Handler
+            var @event = new ForgotPasswordIntegrationEvent(activationCode, user.Username, user.Email);
+            _identityIntegrationService.PublishEventBusAsync(@event);
 
             return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "The mail succesfully is sent.");
         }

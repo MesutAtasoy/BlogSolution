@@ -5,6 +5,7 @@ using Blog.Application.Modules;
 using Blog.Persistance;
 using BlogSolution.Authentication;
 using BlogSolution.Context;
+using BlogSolution.EventBusRabbitMQ;
 using BlogSolution.Mvc;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.Shared.Options;
@@ -33,6 +34,8 @@ namespace Blog.Api
             services.AddCustomMvc();
             services.AddScoped<IBlogDbContextInitializer, BlogDbContextInitializer>();
             services.AddInitializers(typeof(IBlogDbContextInitializer));
+            services.AddIntegrationServices();
+            services.AddEventBus();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -46,6 +49,7 @@ namespace Blog.Api
             builder.Populate(services);
             builder.RegisterModule(new MediatorModule());
             builder.RegisterModule(new MapperModule());
+            builder.RegisterModule(new IntegrationModule());
             return new AutofacServiceProvider(builder.Build());
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IStartupInitializer startupInitializer)

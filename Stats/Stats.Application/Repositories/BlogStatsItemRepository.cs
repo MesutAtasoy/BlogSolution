@@ -36,6 +36,7 @@ namespace Stats.Application.Repositories
             {
 
                 statsItem = await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
+                statsItem.CommentCount = statsItem.CommentCount + 1;
                 statsItem.Comments.Add(new Comment
                 {
                     Id = Guid.NewGuid(),
@@ -50,7 +51,9 @@ namespace Stats.Application.Repositories
                 statsItem = new BlogStatsItem
                 {
                     Id = Guid.NewGuid(),
-                    PostId = comment.PostId
+                    PostId = comment.PostId,
+                    CommentCount = 1,
+                    FavouriteCount = 0 
                 };
                 statsItem.Comments.Add(new Comment
                 {
@@ -72,6 +75,7 @@ namespace Stats.Application.Repositories
             {
 
                 statsItem = await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
+                statsItem.FavouriteCount = statsItem.FavouriteCount + 1;
                 statsItem.Favorites.Add(new Favorite { Id = Guid.NewGuid(), UserId = userId });
                 await _blogStatsItemRepository.UpdateAsync(statsItem);
             }
@@ -80,12 +84,21 @@ namespace Stats.Application.Repositories
                 statsItem = new BlogStatsItem
                 {
                     Id = Guid.NewGuid(),
-                    PostId = comment.PostId
+                    PostId = comment.PostId,
+                    FavouriteCount = 1,
+                    CommentCount = 0
                 };
                 statsItem.Favorites.Add(new Favorite { Id = Guid.NewGuid(), UserId = userId });
                 await _blogStatsItemRepository.AddAsync(statsItem);
             }
             return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "Succesfully favorited.");
+        }
+
+        public async Task DeletePost(Guid postId)
+        {
+            var item = await _blogStatsItemRepository.GetAsync(c=>c.PostId == postId);
+            if(item!=null)
+                await _blogStatsItemRepository.DeleteAsync(item.Id);
         }
     }
 }
