@@ -14,12 +14,12 @@ Blog Solution is container based application which implemented different approac
 - Autofac
 
 ## Architecture overview
-![alt text](https://github.com/MesutAtasoy/BlogSolution/blob/master/Docs/diagram.png)
 
 - **Gateway Api** : The api routes requests to microservices. Ocelot Api gateway is used. 
 - **Blog Api** : Simple Crud operations for Blog's post, category. Mediatr is used. It supports commands and queries.
 - **Stats Api** : Post's Comments and Favorites Crud Operations.
 - **Identity Api** : JWT Authentication and Authorisation is implemented. 
+- **Notification Api** : Mail service.
 
 ## Get Started
 
@@ -63,7 +63,6 @@ Launch Gateway Api with http://localhost:5000
 
 
 ## Road Map
-- RabbitMQ implemantation
 - Logging 
 - Monitoring
 - UI implemantation
