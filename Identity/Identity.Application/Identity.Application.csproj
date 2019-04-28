@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.EventBus\BlogSolution.EventBus.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Types\BlogSolution.Types.csproj" />
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
     <ProjectReference Include="..\Identity.Persistance\Identity.Persistance.csproj" />

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\BlogSolution.EventBus\BlogSolution.EventBus.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Shared\BlogSolution.Shared.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Types\BlogSolution.Types.csproj" />
     <ProjectReference Include="..\Blog.Persistance\Blog.Persistance.csproj" />

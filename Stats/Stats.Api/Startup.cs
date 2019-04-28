@@ -11,6 +11,11 @@ using Stats.Application.Modules;
 using Autofac;
 using BlogSolution.Types.Settings;
 using BlogSolution.Shared.Options;
+using BlogSolution.EventBusRabbitMQ;
+using BlogSolution.EventBus.Abstractions;
+using Stats.Api.IntegrationEvents.EventHandlers;
+using Stats.Api.IntegrationEvents.Events;
+using Stats.Api.IntegrationEvents;
 
 namespace Stats.Api
 {
@@ -32,6 +37,9 @@ namespace Stats.Api
             services.AddJwt();
             services.AddOption<AppSettings>("app");
             services.AddCustomMvc();
+            services.AddIntegrationServices();
+            services.AddEventBus();
+            services.AddEventHandlers();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -46,7 +54,6 @@ namespace Stats.Api
             builder.RegisterModule(new ApplicationModule());
             builder.RegisterModule(new ValidatorModule());
             Container = builder.Build();
-
             return new AutofacServiceProvider(Container);
 
         }
@@ -64,6 +71,13 @@ namespace Stats.Api
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseMvc();
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            eventBus.Subscribe<PostDeletedIntegrationEvent, PostDeletedIntegrationEventHandler>();
         }
     }
 }
