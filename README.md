@@ -12,6 +12,7 @@ Blog Solution is container based application which implemented different approac
 - FluentValidation
 - Ocelot Api Gateway
 - Autofac
+- RabbitMQ
 
 ## Architecture overview
 ![alt text](https://github.com/MesutAtasoy/BlogSolution/blob/Develop/Docs/Architecture%20.png)
