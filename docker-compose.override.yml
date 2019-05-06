@@ -47,7 +47,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityUrl=http://identity.api 
     ports:
-      - "5000:80"
+      - "5010:80"
 
 
 

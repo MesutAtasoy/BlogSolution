@@ -11,8 +11,11 @@ COPY ["Identity/Identity.Domain/Identity.Domain.csproj", "Identity/Identity.Doma
 COPY ["Framework/BlogSolution.Types/BlogSolution.Types.csproj", "Framework/BlogSolution.Types/"]
 COPY ["Framework/BlogSolution.Shared/BlogSolution.Shared.csproj", "Framework/BlogSolution.Shared/"]
 COPY ["Framework/BlogSolution.Authentication/BlogSolution.Authentication.csproj", "Framework/BlogSolution.Authentication/"]
+COPY ["Framework/BlogSolution.EventBus/BlogSolution.EventBus.csproj", "Framework/BlogSolution.EventBus/"]
 COPY ["Framework/BlogSolution.Context/BlogSolution.Context.csproj", "Framework/BlogSolution.Context/"]
+COPY ["Framework/BlogSolution.EventBusRabbitMQ/BlogSolution.EventBusRabbitMQ.csproj", "Framework/BlogSolution.EventBusRabbitMQ/"]
 COPY ["Framework/BlogSolution.Mvc/BlogSolution.Mvc.csproj", "Framework/BlogSolution.Mvc/"]
+COPY ["Framework/BlogSolution.Logging/BlogSolution.Logging.csproj", "Framework/BlogSolution.Logging/"]
 RUN dotnet restore "Identity/Identity.Api/Identity.Api.csproj"
 COPY . .
 WORKDIR "/src/Identity/Identity.Api"

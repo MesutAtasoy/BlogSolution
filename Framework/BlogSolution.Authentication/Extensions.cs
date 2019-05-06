@@ -1,6 +1,6 @@
-﻿using BlogSolution.Authentication.Extension;
-using BlogSolution.Authentication.Handlers;
+﻿using BlogSolution.Authentication.Handlers;
 using BlogSolution.Authentication.Models;
+using BlogSolution.Shared.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
