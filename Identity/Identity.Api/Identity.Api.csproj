@@ -21,7 +21,6 @@
     <ProjectReference Include="..\..\Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Context\BlogSolution.Context.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBusRabbitMQ\BlogSolution.EventBusRabbitMQ.csproj" />
-    <ProjectReference Include="..\..\Framework\BlogSolution.Logging\BlogSolution.Logging.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Mvc\BlogSolution.Mvc.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Shared\BlogSolution.Shared.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Types\BlogSolution.Types.csproj" />
