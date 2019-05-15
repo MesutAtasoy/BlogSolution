@@ -13,6 +13,8 @@ using Notification.Api.IntegrationEvents.EventHandlers;
 using Notification.Api.IntegrationEvents.Events;
 using Notification.Application.Modules;
 using Notification.Api.IntegrationEvents;
+using BlogSolution.Consul;
+using Consul;
 
 namespace Notification.Api
 {
@@ -24,6 +26,7 @@ namespace Notification.Api
         }
 
         public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -43,15 +46,18 @@ namespace Notification.Api
             services.AddIntegrationServices();
             services.AddEventBus();
             services.AddEventHandlers();
+            services.AddServiceDiscovery();
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.AddMail();
             builder.RegisterModule(new ApplicationModule());
-            return new AutofacServiceProvider(builder.Build());
+            Container = builder.Build();
+            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime, IConsulClient consulClient)
         {
             if (env.IsDevelopment())
             {
@@ -64,6 +70,13 @@ namespace Notification.Api
             app.UseAuthentication();
             app.UseMvc();
             ConfigureEventBus(app);
+            var serviceId = app.UseConsulRegisterService();
+
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(serviceId);
+                Container.Dispose();
+            });
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)

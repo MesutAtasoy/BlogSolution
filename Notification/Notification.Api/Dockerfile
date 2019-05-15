@@ -11,6 +11,7 @@ COPY ["Framework/BlogSolution.Shared/BlogSolution.Shared.csproj", "Framework/Blo
 COPY ["Framework/BlogSolution.Mvc/BlogSolution.Mvc.csproj", "Framework/BlogSolution.Mvc/"]
 COPY ["Framework/BlogSolution.Types/BlogSolution.Types.csproj", "Framework/BlogSolution.Types/"]
 COPY ["Notification/Notification.Application/Notification.Application.csproj", "Notification/Notification.Application/"]
+COPY ["Framework/BlogSolution.Consul/BlogSolution.Consul.csproj", "Framework/BlogSolution.Consul/"]
 RUN dotnet restore "Notification/Notification.Api/Notification.Api.csproj"
 COPY . .
 WORKDIR "/src/Notification/Notification.Api"
