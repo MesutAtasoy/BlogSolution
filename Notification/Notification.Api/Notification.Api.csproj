@@ -10,12 +10,14 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Consul" Version="0.7.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\BlogSolution.Consul\BlogSolution.Consul.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBusRabbitMQ\BlogSolution.EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBus\BlogSolution.EventBus.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Mvc\BlogSolution.Mvc.csproj" />
