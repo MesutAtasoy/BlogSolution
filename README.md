@@ -12,6 +12,7 @@ Blog Solution is container based application which implemented different approac
 - FluentValidation
 - Ocelot Api Gateway
 - RabbitMQ
+- Consul 
 
 ## Architecture overview
 ![alt text](https://github.com/MesutAtasoy/BlogSolution/blob/Develop/Docs/Architecture%20.png)
@@ -62,6 +63,35 @@ Launch Gateway Api with http://localhost:5000
 
 **useCustomizationData** : If sets true, Custom initial data is added to database.
 
+## Service Discovery
+![alt text](https://github.com/MesutAtasoy/BlogSolution/blob/master/Docs/consul-service-discovery.PNG)
+
+1. At the root directory, run the docker container.
+
+```
+docker-compose -f docker-compose-consul.yml up -d
+```
+
+```
+ "serviceDiscovery": {
+    "enabled": true,
+    "serviceName": "identity-api",
+    "healthCheckTemplates": [],
+    "endpoints": [],
+    "consul": {
+      "httpEndpoint": "http://consul:8500",
+      "port": "5001",
+      "address": "localhost"
+    }
+  },
+```
+**enabled** : If sets true, The service is added to service discovery.
+
+**httpEndpoint** : Consul's Url
+
+**address** : Application's Url
+
+**port** : Application's Port
 
 ## Road Map
 - Logging 
