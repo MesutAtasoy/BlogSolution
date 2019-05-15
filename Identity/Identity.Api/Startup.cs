@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.EventBusRabbitMQ;
+using BlogSolution.Consul;
+using Consul;
 
 namespace Identity.Api
 {
@@ -26,6 +28,8 @@ namespace Identity.Api
         }
 
         public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
+
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -39,6 +43,7 @@ namespace Identity.Api
             services.AddCustomDbContext<IdentityDbContext>();
             services.AddTransient<IIdentityDbContextInitilizer, IdentityDbContextInitilizer>();
             services.AddInitializers(typeof(IIdentityDbContextInitilizer));
+            services.AddServiceDiscovery();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -54,11 +59,13 @@ namespace Identity.Api
             builder.RegisterModule(new ApplicationModule());
             builder.RegisterModule(new ValidatorModule());
             builder.Populate(services);
-            return new AutofacServiceProvider(builder.Build());
+            Container = builder.Build();
+            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IStartupInitializer startupInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IStartupInitializer startupInitializer,
+             IApplicationLifetime applicationLifetime, IConsulClient consulClient)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +78,13 @@ namespace Identity.Api
             app.UseAuthentication();
             app.UseMvc();
             startupInitializer.InitializeAsync();
+            var serviceId = app.UseConsulRegisterService();
+
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(serviceId);
+                Container.Dispose();
+            });
         }
     }
 }

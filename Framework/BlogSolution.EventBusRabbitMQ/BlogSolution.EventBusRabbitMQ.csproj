@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogSolution.EventBus\BlogSolution.EventBus.csproj" />
+    <ProjectReference Include="..\BlogSolution.Shared\BlogSolution.Shared.csproj" />
   </ItemGroup>
 
 </Project>

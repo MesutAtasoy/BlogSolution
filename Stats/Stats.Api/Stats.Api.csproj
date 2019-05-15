@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.Consul\BlogSolution.Consul.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBusRabbitMQ\BlogSolution.EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBus\BlogSolution.EventBus.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Mongo\BlogSolution.Mongo.csproj" />

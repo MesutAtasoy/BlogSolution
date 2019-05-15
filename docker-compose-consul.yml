@@ -1,0 +1,14 @@
+version: "3.5"
+
+services:
+  consul:
+    image: consul
+    container_name: consul
+    ports:
+      - "8500:8500"
+    volumes:
+      - consul:/consul/data
+
+volumes:
+  consul:
+    driver: local

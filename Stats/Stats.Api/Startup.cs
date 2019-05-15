@@ -16,21 +16,21 @@ using BlogSolution.EventBus.Abstractions;
 using Stats.Api.IntegrationEvents.EventHandlers;
 using Stats.Api.IntegrationEvents.Events;
 using Stats.Api.IntegrationEvents;
+using BlogSolution.Consul;
+using Consul;
 
 namespace Stats.Api
 {
     public class Startup
     {
         public IContainer Container { get; private set; }
+        public IConfiguration Configuration { get; }
+
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddApiBehaviorOptions();
@@ -40,6 +40,7 @@ namespace Stats.Api
             services.AddIntegrationServices();
             services.AddEventBus();
             services.AddEventHandlers();
+            services.AddServiceDiscovery();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -58,8 +59,7 @@ namespace Stats.Api
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime, IConsulClient consulClient)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +72,13 @@ namespace Stats.Api
             app.UseAuthentication();
             app.UseMvc();
             ConfigureEventBus(app);
+            var serviceId = app.UseConsulRegisterService();
+
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(serviceId);
+                Container.Dispose();
+            });
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)
