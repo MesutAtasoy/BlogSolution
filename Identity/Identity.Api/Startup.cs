@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.EventBusRabbitMQ;
+using BlogSolution.Logging;
 
 namespace Identity.Api
 {
@@ -39,6 +40,7 @@ namespace Identity.Api
             services.AddCustomDbContext<IdentityDbContext>();
             services.AddTransient<IIdentityDbContextInitilizer, IdentityDbContextInitilizer>();
             services.AddInitializers(typeof(IIdentityDbContextInitilizer));
+            services.AddElkLogging();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -70,6 +72,7 @@ namespace Identity.Api
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseLogging();
             startupInitializer.InitializeAsync();
         }
     }
