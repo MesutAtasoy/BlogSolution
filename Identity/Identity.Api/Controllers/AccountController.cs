@@ -4,6 +4,7 @@ using Identity.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Identity.Api.Controllers
@@ -22,7 +23,8 @@ namespace Identity.Api.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody]LoginRequestModel requestViewModel) 
         {
-            _logger.LogInformation("Test");
+            _logger.LogInformation("Login Request for : {0}",JsonConvert.SerializeObject(requestViewModel));
+
             return Ok(await _identityService.LoginAsync(requestViewModel));
         } 
 

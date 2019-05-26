@@ -13,7 +13,6 @@ namespace Identity.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, config) => { config.ClearProviders(); })
                 .UseStartup<Startup>();
     }
 }
