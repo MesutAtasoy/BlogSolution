@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BlogSolution.Authentication;
-using BlogSolution.Consul;
-using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,7 +38,6 @@ namespace Gateway.Api
 
             services.AddJwt();
             services.AddOcelot(Configuration);
-            services.AddServiceDiscovery();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -51,7 +48,7 @@ namespace Gateway.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime, IConsulClient consulClient)
+            IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -59,13 +56,7 @@ namespace Gateway.Api
             }
             app.UseAuthentication();
             app.UseOcelot().Wait();
-            var serviceId = app.UseConsulRegisterService();
 
-            applicationLifetime.ApplicationStopped.Register(() =>
-            {
-                consulClient.Agent.ServiceDeregister(serviceId);
-                Container.Dispose();
-            });
         }
     }
 }

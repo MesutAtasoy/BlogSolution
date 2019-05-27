@@ -4,14 +4,12 @@ using Autofac.Extensions.DependencyInjection;
 using Blog.Application.Modules;
 using Blog.Persistance;
 using BlogSolution.Authentication;
-using BlogSolution.Consul;
 using BlogSolution.Context;
 using BlogSolution.EventBusRabbitMQ;
 using BlogSolution.Mvc;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.Shared.Options;
 using BlogSolution.Types.Settings;
-using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,7 +38,6 @@ namespace Blog.Api
             services.AddInitializers(typeof(IBlogDbContextInitializer));
             services.AddIntegrationServices();
             services.AddEventBus();
-            services.AddServiceDiscovery();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -59,7 +56,7 @@ namespace Blog.Api
             return new AutofacServiceProvider(Container);
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IStartupInitializer startupInitializer, 
-            IApplicationLifetime applicationLifetime, IConsulClient consulClient)
+            IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -73,13 +70,6 @@ namespace Blog.Api
             app.UseMvc();
 
             startupInitializer.InitializeAsync();
-            var serviceId = app.UseConsulRegisterService();
-
-            applicationLifetime.ApplicationStopped.Register(() =>
-            {
-                consulClient.Agent.ServiceDeregister(serviceId);
-                Container.Dispose();
-            });
         }
     }
 }

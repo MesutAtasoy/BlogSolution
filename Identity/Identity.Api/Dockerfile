@@ -15,7 +15,6 @@ COPY ["Framework/BlogSolution.EventBus/BlogSolution.EventBus.csproj", "Framework
 COPY ["Framework/BlogSolution.Context/BlogSolution.Context.csproj", "Framework/BlogSolution.Context/"]
 COPY ["Framework/BlogSolution.EventBusRabbitMQ/BlogSolution.EventBusRabbitMQ.csproj", "Framework/BlogSolution.EventBusRabbitMQ/"]
 COPY ["Framework/BlogSolution.Mvc/BlogSolution.Mvc.csproj", "Framework/BlogSolution.Mvc/"]
-COPY ["Framework/BlogSolution.Consul/BlogSolution.Consul.csproj", "Framework/BlogSolution.Consul/"]
 RUN dotnet restore "Identity/Identity.Api/Identity.Api.csproj"
 COPY . .
 WORKDIR "/src/Identity/Identity.Api"

@@ -16,8 +16,6 @@ using BlogSolution.EventBus.Abstractions;
 using Stats.Api.IntegrationEvents.EventHandlers;
 using Stats.Api.IntegrationEvents.Events;
 using Stats.Api.IntegrationEvents;
-using BlogSolution.Consul;
-using Consul;
 
 namespace Stats.Api
 {
@@ -40,7 +38,6 @@ namespace Stats.Api
             services.AddIntegrationServices();
             services.AddEventBus();
             services.AddEventHandlers();
-            services.AddServiceDiscovery();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -59,7 +56,7 @@ namespace Stats.Api
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime, IConsulClient consulClient)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -72,13 +69,6 @@ namespace Stats.Api
             app.UseAuthentication();
             app.UseMvc();
             ConfigureEventBus(app);
-            var serviceId = app.UseConsulRegisterService();
-
-            applicationLifetime.ApplicationStopped.Register(() =>
-            {
-                consulClient.Agent.ServiceDeregister(serviceId);
-                Container.Dispose();
-            });
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)

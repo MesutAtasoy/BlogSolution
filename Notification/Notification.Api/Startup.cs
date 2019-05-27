@@ -13,8 +13,6 @@ using Notification.Api.IntegrationEvents.EventHandlers;
 using Notification.Api.IntegrationEvents.Events;
 using Notification.Application.Modules;
 using Notification.Api.IntegrationEvents;
-using BlogSolution.Consul;
-using Consul;
 
 namespace Notification.Api
 {
@@ -46,7 +44,6 @@ namespace Notification.Api
             services.AddIntegrationServices();
             services.AddEventBus();
             services.AddEventHandlers();
-            services.AddServiceDiscovery();
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.AddMail();
@@ -57,7 +54,7 @@ namespace Notification.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime, IConsulClient consulClient)
+            IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -70,13 +67,6 @@ namespace Notification.Api
             app.UseAuthentication();
             app.UseMvc();
             ConfigureEventBus(app);
-            var serviceId = app.UseConsulRegisterService();
-
-            applicationLifetime.ApplicationStopped.Register(() =>
-            {
-                consulClient.Agent.ServiceDeregister(serviceId);
-                Container.Dispose();
-            });
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)
