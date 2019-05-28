@@ -1,8 +1,13 @@
 ﻿using BlogSolution.Shared.Options;
 using BlogSolution.Types.Settings;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Serilog;
-using Serilog.Events;
+using Serilog.Exceptions;
+using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
 using System;
 
@@ -10,44 +15,51 @@ namespace BlogSolution.Logging
 {
     public static class Extensions
     {
-        public static IWebHostBuilder UseLogging(this IWebHostBuilder webHostBuilder, string applicationName = null)
-            => webHostBuilder.UseSerilog((context, loggerConfiguration) =>
-            {
-                var appOptions = context.Configuration.GetOptions<AppSettings>("app");
-                var elkOptions = context.Configuration.GetOptions<ElkOptions>("elk");
-                var serilogOptions = context.Configuration.GetOptions<SerilogOptions>("serilog");
-                if (!Enum.TryParse<LogEventLevel>(serilogOptions.Level, true, out var level))
-                {
-                    level = LogEventLevel.Information;
-                }
-
-                applicationName = string.IsNullOrWhiteSpace(applicationName) ? appOptions.Name : applicationName;
-                loggerConfiguration.Enrich.FromLogContext()
-                    .MinimumLevel.Is(level)
-                    .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
-                    .Enrich.WithProperty("ApplicationName", applicationName);
-                Configure(loggerConfiguration, level, elkOptions, serilogOptions);
-            });
-
-        private static void Configure(LoggerConfiguration loggerConfiguration, LogEventLevel level,
-            ElkOptions elkOptions, SerilogOptions serilogOptions)
+        public static IApplicationBuilder UseLogging(this IApplicationBuilder app)
         {
-            if (elkOptions.Enabled)
+            var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>()
+                ?? throw new ArgumentException("Missing dependency", nameof(ILoggerFactory));
+
+            var elkOptionValue = app.ApplicationServices.GetRequiredService<IOptions<ElkOptions>>() 
+                ?? throw new ArgumentException("Missing dependency", nameof(IOptions<ElkOptions>));
+
+            var appSettingsValue = app.ApplicationServices.GetRequiredService<IOptions<AppSettings>>()
+             ?? throw new ArgumentException("Missing dependency", nameof(IOptions<ElkOptions>));
+
+            var elkOption = elkOptionValue.Value;
+            var appSettings = appSettingsValue.Value;
+
+            if(!elkOption.Enabled) 
+                return app;
+
+            Log.Logger = new LoggerConfiguration()
+              .Enrich.FromLogContext()
+              .Enrich.WithExceptionDetails()
+              .Enrich.WithProperty("ApplicationName",appSettings.Name)
+              .WriteTo.Elasticsearch(
+                  new ElasticsearchSinkOptions(new Uri(elkOption.Url))
+                  {
+                      AutoRegisterTemplate = true,
+                      IndexFormat = elkOption.IndexFormat,
+                      CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true)
+                  })
+              .CreateLogger();
+
+            loggerFactory.AddSerilog();
+            return app;
+        }
+
+        public static IServiceCollection AddElkLogging(this IServiceCollection services)
+        {
+            IConfiguration configuration;
+            using (var serviceProvider = services.BuildServiceProvider())
             {
-                loggerConfiguration.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elkOptions.Url))
-                {
-                    MinimumLogEventLevel = level,
-                    AutoRegisterTemplate = true,
-                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                    IndexFormat = string.IsNullOrWhiteSpace(elkOptions.IndexFormat)
-                        ? "logstash-{0:yyyy.MM.dd}"
-                        : elkOptions.IndexFormat,
-                    ModifyConnectionSettings = connectionConfiguration =>
-                        elkOptions.BasicAuthEnabled
-                            ? connectionConfiguration.BasicAuthentication(elkOptions.Username, elkOptions.Password)
-                            : connectionConfiguration
-                });
+                configuration = serviceProvider.GetService<IConfiguration>();
             }
+
+            services.AddOption<ElkOptions>("elk");
+            services.Configure<ElkOptions>(configuration);
+            return services;
         }
     }
 }

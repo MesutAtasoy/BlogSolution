@@ -1,13 +1,16 @@
-version: '3.4'
+version: '3.5'
 
 services:
 
   sql.data:
-      environment:
-        - SA_PASSWORD=15961596+Abc
-        - ACCEPT_EULA=Y
-      ports:
-        - "1433:1433" 
+    environment:
+      - SA_PASSWORD=15961596+Abc
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    networks:
+      - blog_network
+      - elk_logging
   
   nosql.data:
     ports:
@@ -17,30 +20,45 @@ services:
     ports:
       - "5672:5672"    
       - "15672:15672"
+    networks:
+      - blog_network
+      - elk_logging
 
   identity.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5001:80"
+    networks:
+      - blog_network
+      - elk_logging
 
   blog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5002:80"
+    networks:
+      - blog_network
+      - elk_logging
 
   stats.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5003:80"
+    networks:
+      - blog_network
+      - elk_logging
 
   notification.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5004:80"
+    networks:
+      - blog_network
+      - elk_logging
 
   gateway.api:
     environment:
@@ -48,9 +66,14 @@ services:
       - IdentityUrl=http://identity.api 
     ports:
       - "5010:80"
+    networks:
+      - blog_network
+      - elk_logging
 
-
-
-
-
-
+networks:
+  blog_network:
+    name: blog_network
+    driver: bridge
+  elk_logging:
+    name: elk_logging
+    external: true
