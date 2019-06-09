@@ -6,6 +6,7 @@ using Blog.Persistance;
 using BlogSolution.Authentication;
 using BlogSolution.Context;
 using BlogSolution.EventBusRabbitMQ;
+using BlogSolution.Logging;
 using BlogSolution.Mvc;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.Shared.Options;
@@ -38,6 +39,7 @@ namespace Blog.Api
             services.AddInitializers(typeof(IBlogDbContextInitializer));
             services.AddIntegrationServices();
             services.AddEventBus();
+            services.AddElkLogging();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -67,6 +69,7 @@ namespace Blog.Api
             app.UseAllForwardedHeaders();
             app.UseErrorHandler();
             app.UseAuthentication();
+            app.UseLogging();
             app.UseMvc();
 
             startupInitializer.InitializeAsync();

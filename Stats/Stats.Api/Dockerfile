@@ -14,6 +14,8 @@ COPY ["Stats/Stats.Domain/Stats.Domain.csproj", "Stats/Stats.Domain/"]
 COPY ["Framework/BlogSolution.Mongo/BlogSolution.Mongo.csproj", "Framework/BlogSolution.Mongo/"]
 COPY ["Framework/BlogSolution.Authentication/BlogSolution.Authentication.csproj", "Framework/BlogSolution.Authentication/"]
 COPY ["Stats/Stats.Application/Stats.Application.csproj", "Stats/Stats.Application/"]
+COPY ["Framework/BlogSolution.Logging/BlogSolution.Logging.csproj", "Framework/BlogSolution.Logging/"]
+
 RUN dotnet restore "Stats/Stats.Api/Stats.Api.csproj"
 COPY . .
 WORKDIR "/src/Stats/Stats.Api"

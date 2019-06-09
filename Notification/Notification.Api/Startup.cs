@@ -13,6 +13,7 @@ using Notification.Api.IntegrationEvents.EventHandlers;
 using Notification.Api.IntegrationEvents.Events;
 using Notification.Application.Modules;
 using Notification.Api.IntegrationEvents;
+using BlogSolution.Logging;
 
 namespace Notification.Api
 {
@@ -31,6 +32,7 @@ namespace Notification.Api
         {
 
             services.AddCustomMvc();
+            services.AddElkLogging();
             services.AddApiBehaviorOptions();
             services.AddCors(options =>
             {
@@ -66,6 +68,7 @@ namespace Notification.Api
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseLogging();
             ConfigureEventBus(app);
         }
 

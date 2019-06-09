@@ -35,6 +35,7 @@ namespace Identity.Api
 
             services.AddOption<AppSettings>("app");
             services.AddOption<IdentitySettings>("identitySettings");
+            services.AddElkLogging();
             services.AddJwt();
             services.AddCustomMvc();
             services.AddApiBehaviorOptions();
@@ -42,7 +43,6 @@ namespace Identity.Api
             services.AddCustomDbContext<IdentityDbContext>();
             services.AddTransient<IIdentityDbContextInitilizer, IdentityDbContextInitilizer>();
             services.AddInitializers(typeof(IIdentityDbContextInitilizer));
-            services.AddElkLogging();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>

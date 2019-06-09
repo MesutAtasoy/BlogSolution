@@ -6,6 +6,7 @@ using BlogSolution.Types;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading;
@@ -19,12 +20,19 @@ namespace Blog.Application.Posts.Commands.DeletePost
         private readonly BlogDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBlogIntegrationEventService _blogIntegrationEventService;
+        private readonly ILogger<DeletePostCommandHandler> _logger;
 
-        public DeletePostCommandHandler(BlogDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, IBlogIntegrationEventService blogIntegrationEventService)
+        public DeletePostCommandHandler(BlogDbContext context, 
+            IHttpContextAccessor httpContextAccessor, 
+            IMapper mapper, 
+            IBlogIntegrationEventService blogIntegrationEventService,
+            ILogger<DeletePostCommandHandler> logger
+            )
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
             _blogIntegrationEventService = blogIntegrationEventService;
+            _logger = logger;
         }
 
         public async Task<ApiBaseResponse> Handle(DeletePostCommand request, CancellationToken cancellationToken)
@@ -44,7 +52,10 @@ namespace Blog.Application.Posts.Commands.DeletePost
             _context.SaveChanges();
 
             var @event = new PostDeletedIntegrationEvent(post.Id);
+            _logger.LogInformation($"{post.Title} - Delete Handle (Before Publish Event)");
             _blogIntegrationEventService.PublishEventBusAsync(@event);
+            _logger.LogInformation($"{post.Title} - Delete Handle (After Publish Event)");
+
 
             return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success);
         }
