@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.EventBusRabbitMQ;
+using BlogSolution.Logging;
 
 namespace Identity.Api
 {
@@ -34,6 +35,7 @@ namespace Identity.Api
 
             services.AddOption<AppSettings>("app");
             services.AddOption<IdentitySettings>("identitySettings");
+            services.AddElkLogging();
             services.AddJwt();
             services.AddCustomMvc();
             services.AddApiBehaviorOptions();
@@ -74,6 +76,7 @@ namespace Identity.Api
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseLogging();
             startupInitializer.InitializeAsync();
         }
     }

@@ -16,6 +16,7 @@ using BlogSolution.EventBus.Abstractions;
 using Stats.Api.IntegrationEvents.EventHandlers;
 using Stats.Api.IntegrationEvents.Events;
 using Stats.Api.IntegrationEvents;
+using BlogSolution.Logging;
 
 namespace Stats.Api
 {
@@ -38,6 +39,7 @@ namespace Stats.Api
             services.AddIntegrationServices();
             services.AddEventBus();
             services.AddEventHandlers();
+            services.AddElkLogging();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -67,6 +69,7 @@ namespace Stats.Api
             app.UseAllForwardedHeaders();
             app.UseErrorHandler();
             app.UseAuthentication();
+            app.UseLogging();
             app.UseMvc();
             ConfigureEventBus(app);
         }

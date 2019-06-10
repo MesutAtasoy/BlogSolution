@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBusRabbitMQ\BlogSolution.EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.EventBus\BlogSolution.EventBus.csproj" />
+    <ProjectReference Include="..\..\Framework\BlogSolution.Logging\BlogSolution.Logging.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Mvc\BlogSolution.Mvc.csproj" />
     <ProjectReference Include="..\..\Framework\BlogSolution.Shared\BlogSolution.Shared.csproj" />
     <ProjectReference Include="..\Notification.Application\Notification.Application.csproj" />

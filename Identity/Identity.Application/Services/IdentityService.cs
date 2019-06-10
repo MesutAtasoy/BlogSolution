@@ -14,6 +14,7 @@ using BlogSolution.Types.Exceptions;
 using BlogSolution.Authentication.Password;
 using Identity.Application.IntegrationEvents;
 using Identity.Application.IntegrationEvents.Events;
+using Microsoft.Extensions.Logging;
 
 namespace Identity.Application.Services
 {
@@ -25,13 +26,15 @@ namespace Identity.Application.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IdentitySettings _identitySettings;
         private readonly IIdentityIntegrationEventService _identityIntegrationService;
+        private readonly ILogger<IdentityService> _logger;
 
         public IdentityService(IUserService userService, 
                                IJwtHandler jwtHandler, 
                                IOptions<IdentitySettings> options, 
                                IHttpContextAccessor httpContextAccessor,
                                IUserPasswordService userPasswordService,
-                               IIdentityIntegrationEventService identityIntegrationService)
+                               IIdentityIntegrationEventService identityIntegrationService,
+                               ILogger<IdentityService> logger)
         {
             _userService = userService;
             _userPasswordService = userPasswordService;
@@ -39,6 +42,7 @@ namespace Identity.Application.Services
             _identitySettings = options.Value;
             _httpContextAccessor = httpContextAccessor;
             _identityIntegrationService = identityIntegrationService;
+            _logger = logger;
         }
 
         public async Task<ApiBaseResponse> LoginAsync(LoginRequestModel requestModel)
@@ -145,9 +149,10 @@ namespace Identity.Application.Services
                 CreatedDate = now,
                 IsActive = true,
             });
-
+            _logger.LogInformation($"{user.Username} - Forgot Password Event is starting");
             var @event = new ForgotPasswordIntegrationEvent(activationCode, user.Username, user.Email);
             _identityIntegrationService.PublishEventBusAsync(@event);
+            _logger.LogInformation($"{user.Username} - After Publish Forgot Password Event is starting");
 
             return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "The mail succesfully is sent.");
         }
