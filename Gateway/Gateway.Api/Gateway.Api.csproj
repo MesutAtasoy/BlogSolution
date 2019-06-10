@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\BlogSolution.Authentication\BlogSolution.Authentication.csproj" />
-    <ProjectReference Include="..\..\Framework\BlogSolution.Consul\BlogSolution.Consul.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,8 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using BlogSolution.Shared.Initializers;
 using BlogSolution.EventBusRabbitMQ;
-using BlogSolution.Consul;
-using Consul;
+using BlogSolution.Logging;
 
 namespace Identity.Api
 {
@@ -36,6 +35,7 @@ namespace Identity.Api
 
             services.AddOption<AppSettings>("app");
             services.AddOption<IdentitySettings>("identitySettings");
+            services.AddElkLogging();
             services.AddJwt();
             services.AddCustomMvc();
             services.AddApiBehaviorOptions();
@@ -43,7 +43,6 @@ namespace Identity.Api
             services.AddCustomDbContext<IdentityDbContext>();
             services.AddTransient<IIdentityDbContextInitilizer, IdentityDbContextInitilizer>();
             services.AddInitializers(typeof(IIdentityDbContextInitilizer));
-            services.AddServiceDiscovery();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors =>
@@ -65,7 +64,7 @@ namespace Identity.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IStartupInitializer startupInitializer,
-             IApplicationLifetime applicationLifetime, IConsulClient consulClient)
+             IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -77,14 +76,8 @@ namespace Identity.Api
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseLogging();
             startupInitializer.InitializeAsync();
-            var serviceId = app.UseConsulRegisterService();
-
-            applicationLifetime.ApplicationStopped.Register(() =>
-            {
-                consulClient.Agent.ServiceDeregister(serviceId);
-                Container.Dispose();
-            });
         }
     }
 }

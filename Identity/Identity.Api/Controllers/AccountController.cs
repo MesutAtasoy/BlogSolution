@@ -3,6 +3,8 @@ using Identity.Application.Contracts;
 using Identity.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Identity.Api.Controllers
@@ -10,11 +12,21 @@ namespace Identity.Api.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IIdentityService _identityService;
-        public AccountController(IIdentityService identityService) => _identityService = identityService;
+        private readonly ILogger<AccountController> _logger;
+        public AccountController(IIdentityService identityService, ILogger<AccountController> logger)
+        {
+            _logger = logger;
+            _identityService = identityService;
+        }
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody]LoginRequestModel requestViewModel) => Ok(await _identityService.LoginAsync(requestViewModel));
+        public async Task<IActionResult> Login([FromBody]LoginRequestModel requestViewModel) 
+        {
+            _logger.LogInformation("Login Request for : {0}",JsonConvert.SerializeObject(requestViewModel));
+
+            return Ok(await _identityService.LoginAsync(requestViewModel));
+        } 
 
         [AllowAnonymous]
         [HttpPost("Register")]

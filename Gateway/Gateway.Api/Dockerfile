@@ -6,7 +6,6 @@ FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["Gateway/Gateway.Api/Gateway.Api.csproj", "Gateway/Gateway.Api/"]
 COPY ["Framework/BlogSolution.Authentication/BlogSolution.Authentication.csproj", "Framework/BlogSolution.Authentication/"]
-COPY ["Framework/BlogSolution.Consul/BlogSolution.Consul.csproj", "Framework/BlogSolution.Consul/"]
 RUN dotnet restore "Gateway/Gateway.Api/Gateway.Api.csproj"
 COPY . .
 WORKDIR "/src/Gateway/Gateway.Api"

@@ -15,7 +15,8 @@ COPY ["Framework/BlogSolution.EventBus/BlogSolution.EventBus.csproj", "Framework
 COPY ["Blog/Blog.Application/Blog.Application.csproj", "Blog/Blog.Application/"]
 COPY ["Framework/BlogSolution.Mvc/BlogSolution.Mvc.csproj", "Framework/BlogSolution.Mvc/"]
 COPY ["Framework/BlogSolution.Authentication/BlogSolution.Authentication.csproj", "Framework/BlogSolution.Authentication/"]
-COPY ["Framework/BlogSolution.Consul/BlogSolution.Consul.csproj", "Framework/BlogSolution.Consul/"]
+COPY ["Framework/BlogSolution.Logging/BlogSolution.Logging.csproj", "Framework/BlogSolution.Logging/"]
+
 RUN dotnet restore "Blog/Blog.Api/Blog.Api.csproj"
 COPY . .
 WORKDIR "/src/Blog/Blog.Api"
