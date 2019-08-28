@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Identity/Identity.Api/Dockerfile
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Identity/Identity.Api/Dockerfile --tag ${DOCKER_REGISTRY-}identityapi
