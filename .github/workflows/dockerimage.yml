@@ -10,5 +10,5 @@ jobs:
  
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
+    - name: Identity/Identity.Api/Dockerfile
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
