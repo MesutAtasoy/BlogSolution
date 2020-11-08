@@ -27,7 +27,7 @@ namespace Identity.Application.Services
         private readonly IdentitySettings _identitySettings;
         private readonly IIdentityIntegrationEventService _identityIntegrationService;
         private readonly ILogger<IdentityService> _logger;
-
+        private int sss = 1;
         public IdentityService(IUserService userService, 
                                IJwtHandler jwtHandler, 
                                IOptions<IdentitySettings> options, 
@@ -47,6 +47,7 @@ namespace Identity.Application.Services
 
         public async Task<ApiBaseResponse> LoginAsync(LoginRequestModel requestModel)
         {
+
             ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
             var user = await _userService.FindByEmailAsync(requestModel.Email);
             if (user == null) return new ApiBaseResponse(System.Net.HttpStatusCode.BadRequest, ApplicationStatusCode.AnErrorHasOccured, null, "The email or password is wrong");
