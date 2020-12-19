@@ -5,7 +5,17 @@ namespace Stats.Domain.Models
 {
     public class Favorite : IIdentifiable
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
+        public Favorite()
+        {
+                
+        }
+
+        public Favorite(Guid userId)
+        {
+            Id = Guid.NewGuid();
+            UserId = userId;
+        }
+        public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
     }
 }

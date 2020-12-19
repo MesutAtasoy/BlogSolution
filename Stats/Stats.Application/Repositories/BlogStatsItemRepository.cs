@@ -31,67 +31,37 @@ namespace Stats.Application.Repositories
         {
             var userId = Guid.Parse(_httpContextAccessor?.HttpContext?.User?.Identity?.Name);
 
-            BlogStatsItem statsItem = new BlogStatsItem();
-            if (await _blogStatsItemRepository.ExistsAsync(c => c.PostId == comment.PostId))
+            var statsItem =  await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
+            if (statsItem != null)
             {
-
-                statsItem = await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
-                statsItem.CommentCount = statsItem.CommentCount + 1;
-                statsItem.Comments.Add(new Comment
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = userId,
-                    CommentText = comment.Comment,
-                    CreateDate = DateTime.UtcNow
-                });
+                statsItem.AddComment(comment.Comment,userId);
                 await _blogStatsItemRepository.UpdateAsync(statsItem);
             }
             else
             {
-                statsItem = new BlogStatsItem
-                {
-                    Id = Guid.NewGuid(),
-                    PostId = comment.PostId,
-                    CommentCount = 1,
-                    FavouriteCount = 0 
-                };
-                statsItem.Comments.Add(new Comment
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = userId,
-                    CommentText = comment.Comment,
-                    CreateDate = DateTime.UtcNow
-                });
+                statsItem = new BlogStatsItem(comment.PostId);
+                statsItem.AddComment(comment.Comment,userId);
                 await _blogStatsItemRepository.AddAsync(statsItem);
             }
-            return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "Succesfully commented.");
+            return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "Successfully commented.");
         }
         public async Task<ApiBaseResponse> FavoritePostAsync(CommentRequestModel comment)
         {
             var userId = Guid.Parse(_httpContextAccessor?.HttpContext?.User?.Identity?.Name);
 
-            BlogStatsItem statsItem = new BlogStatsItem();
-            if (await _blogStatsItemRepository.ExistsAsync(c => c.PostId == comment.PostId))
+            var statsItem =  await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
+            if (statsItem != null)
             {
-
-                statsItem = await _blogStatsItemRepository.GetAsync(c => c.PostId == comment.PostId);
-                statsItem.FavouriteCount = statsItem.FavouriteCount + 1;
-                statsItem.Favorites.Add(new Favorite { Id = Guid.NewGuid(), UserId = userId });
+                statsItem.AddFavorite(userId);
                 await _blogStatsItemRepository.UpdateAsync(statsItem);
             }
             else
             {
-                statsItem = new BlogStatsItem
-                {
-                    Id = Guid.NewGuid(),
-                    PostId = comment.PostId,
-                    FavouriteCount = 1,
-                    CommentCount = 0
-                };
-                statsItem.Favorites.Add(new Favorite { Id = Guid.NewGuid(), UserId = userId });
+                statsItem = new BlogStatsItem(comment.PostId);
+                statsItem.AddFavorite(userId);
                 await _blogStatsItemRepository.AddAsync(statsItem);
             }
-            return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "Succesfully favorited.");
+            return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, null, "Successfully favorited.");
         }
 
         public async Task DeletePost(Guid postId)

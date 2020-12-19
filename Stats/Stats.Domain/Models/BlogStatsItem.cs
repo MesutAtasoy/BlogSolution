@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BlogSolution.Types;
 
 namespace Stats.Domain.Models
@@ -18,6 +19,43 @@ namespace Stats.Domain.Models
         {
             this.Comments = new List<Comment>();
             this.Favorites = new List<Favorite>();
+        }
+
+        public BlogStatsItem(Guid postId)
+        {
+            PostId = postId;
+            this.Comments = new List<Comment>();
+            this.Favorites = new List<Favorite>();
+        }
+
+        public void AddComment(string comment, Guid userId)
+        {
+            var newComment = new Comment(userId, comment);
+            if (Comments != null && Comments.Any())
+            {
+                Comments.Add(newComment);
+            }
+            else
+            {
+                Comments = new List<Comment> {newComment};
+            }
+
+            CommentCount += 1;
+        }
+
+        public void AddFavorite(Guid userId)
+        {
+            var favorite = new Favorite(userId);
+            if (Favorites != null && Favorites.Any())
+            {
+                Favorites.Add(favorite);
+            }
+            else
+            {
+                Favorites = new List<Favorite> {favorite};
+            }
+
+            FavouriteCount += 1;
         }
     }
 }
