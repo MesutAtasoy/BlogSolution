@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 
-namespace Blog.Application.Posts.Commands.CreatePost
+namespace Blog.Application.Commands.Posts.UpdatePost
 {
-    public class CreatePostCommandValidator : AbstractValidator<CreatePostCommand> , ICommandValidator
+    public class UpdatePostCommandValidator : AbstractValidator<UpdatePostCommand>, ICommandValidator
     {
-        public CreatePostCommandValidator()
+        public UpdatePostCommandValidator()
         {
+            RuleFor(x => x.PostId).NotEmpty();
             RuleFor(x => x.Title).MaximumLength(250).NotEmpty();
             RuleFor(x => x.PostContent).NotEmpty();
             RuleFor(x => x.CategoryId).NotEmpty().WithMessage("Category is required");

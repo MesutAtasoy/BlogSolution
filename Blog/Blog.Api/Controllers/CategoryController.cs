@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Blog.Application.Categories.Queries;
+using Blog.Application.Queries.Categories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +14,6 @@ namespace Blog.Api.Controllers
         }
 
         [HttpGet("GetCategories")]
-        public async Task<IActionResult> GetCategories([FromQuery] GetCategoryQuery query) => Ok(await _mediator.Send(query));
+        public async Task<IActionResult> GetCategories([FromQuery] GetCategoryQuery query) => Ok(await Mediator.Send(query));
     }
 }

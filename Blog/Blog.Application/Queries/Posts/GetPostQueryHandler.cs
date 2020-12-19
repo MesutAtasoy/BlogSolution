@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blog.Application.Posts.Queries
+namespace Blog.Application.Queries.Posts
 {
     public class GetPostQueryHandler : IRequestHandler<GetPostQuery, ApiBaseResponse>, IQuery
     {
@@ -36,7 +36,7 @@ namespace Blog.Application.Posts.Queries
                 query = query.Where(c => c.Title.Contains(request.Title));
 
 
-            return new ApiBaseResponse(System.Net.HttpStatusCode.OK, ApplicationStatusCode.Success, _mapper.Map<List<PostDto>>(await query.ToListAsync()));
+            return new ApiBaseResponse(System.Net.HttpStatusCode.OK, ApplicationStatusCode.Success, _mapper.Map<List<PostDto>>(await query.ToListAsync(cancellationToken)));
 
         }
     }

@@ -12,7 +12,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blog.Application.Posts.Commands.DeletePost
+namespace Blog.Application.Commands.Posts.DeletePost
 {
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, ApiBaseResponse>, ICommand
     {
@@ -23,8 +23,7 @@ namespace Blog.Application.Posts.Commands.DeletePost
         private readonly ILogger<DeletePostCommandHandler> _logger;
 
         public DeletePostCommandHandler(BlogDbContext context, 
-            IHttpContextAccessor httpContextAccessor, 
-            IMapper mapper, 
+            IHttpContextAccessor httpContextAccessor,
             IBlogIntegrationEventService blogIntegrationEventService,
             ILogger<DeletePostCommandHandler> logger
             )
@@ -37,7 +36,7 @@ namespace Blog.Application.Posts.Commands.DeletePost
 
         public async Task<ApiBaseResponse> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
-            var post = await _context.Posts.SingleOrDefaultAsync(c => c.Id == request.PostId);
+            var post = await _context.Posts.SingleOrDefaultAsync(c => c.Id == request.PostId, cancellationToken);
             if (post == null)
                 return new ApiBaseResponse(HttpStatusCode.NotFound, ApplicationStatusCode.AnErrorHasOccured, null, "Post is not found");
 
@@ -46,17 +45,13 @@ namespace Blog.Application.Posts.Commands.DeletePost
             if (userId != post.AuthorId)
                 return new ApiBaseResponse(HttpStatusCode.BadRequest, ApplicationStatusCode.AnErrorHasOccured, null, "Unauthorized Author");
 
-            post.IsDeleted = true;
-            post.UpdatedBy = userId;
-            post.UpdatedDate = DateTime.UtcNow;
-            _context.SaveChanges();
+            post.MarkAsDelete(userId);
+            await _context.SaveChangesAsync(cancellationToken);
 
             var @event = new PostDeletedIntegrationEvent(post.Id);
             _logger.LogInformation($"{post.Title} - Delete Handle (Before Publish Event)");
             _blogIntegrationEventService.PublishEventBusAsync(@event);
             _logger.LogInformation($"{post.Title} - Delete Handle (After Publish Event)");
-
-
             return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success);
         }
     }

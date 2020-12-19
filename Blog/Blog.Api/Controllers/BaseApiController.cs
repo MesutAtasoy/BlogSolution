@@ -9,10 +9,10 @@ namespace Blog.Api.Controllers
     [BlogSolutionAuth("identity-api-key")]
     public class BaseApiController : ControllerBase
     {
-        protected IMediator _mediator;
+        protected IMediator Mediator;
         public BaseApiController(IMediator mediator)
         {
-            _mediator = mediator;
+            Mediator = mediator;
         }
     }
 }

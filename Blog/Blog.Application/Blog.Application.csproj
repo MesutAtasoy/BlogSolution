@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Blog.Persistance\Blog.Persistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Posts" />
+  </ItemGroup>
+
 </Project>

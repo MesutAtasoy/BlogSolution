@@ -5,6 +5,16 @@ namespace Blog.Domain.Models
 {
     public partial class PostTag : ISoftDeletable
     {
+        public PostTag()
+        {
+            
+        }
+        public PostTag(Guid postId, Guid tagId)
+        {
+            PostId = postId;
+            TagId = tagId;
+        }
+
         public Guid PostId { get; set; }
         public Guid TagId { get; set; }
 

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blog.Application.Categories.Queries
+namespace Blog.Application.Queries.Categories
 {
     public class GetCategoryQueryHandler : IRequestHandler<GetCategoryQuery, ApiBaseResponse>, IQuery
     {
@@ -32,7 +32,7 @@ namespace Blog.Application.Categories.Queries
             if (!string.IsNullOrEmpty(request.Name))
                 query = query.Where(c => c.Name.Contains(request.Name));
 
-            return new ApiBaseResponse(System.Net.HttpStatusCode.OK,ApplicationStatusCode.Success,_mapper.Map<List<CategoryDto>>(await query.ToListAsync()));
+            return new ApiBaseResponse(System.Net.HttpStatusCode.OK,ApplicationStatusCode.Success,_mapper.Map<List<CategoryDto>>(await query.ToListAsync(cancellationToken)));
 
         }
     }

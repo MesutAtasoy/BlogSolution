@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Blog.Application.Posts.Commands.DeletePost
+namespace Blog.Application.Commands.Posts.DeletePost
 {
     public class UpdatePostCommandValidator : AbstractValidator<DeletePostCommand>, ICommandValidator
     {

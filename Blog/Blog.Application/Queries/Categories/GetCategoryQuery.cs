@@ -2,7 +2,7 @@
 using MediatR;
 using System;
 
-namespace Blog.Application.Categories.Queries
+namespace Blog.Application.Queries.Categories
 {
     public class GetCategoryQuery : IRequest<ApiBaseResponse>
     {

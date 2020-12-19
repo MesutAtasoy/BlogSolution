@@ -3,7 +3,7 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 
-namespace Blog.Application.Posts.Commands.UpdatePost
+namespace Blog.Application.Commands.Posts.UpdatePost
 {
     public class UpdatePostCommand : IRequest<ApiBaseResponse>
     {

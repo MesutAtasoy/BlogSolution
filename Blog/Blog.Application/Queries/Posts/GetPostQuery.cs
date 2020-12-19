@@ -2,7 +2,7 @@
 using MediatR;
 using System;
 
-namespace Blog.Application.Posts.Queries
+namespace Blog.Application.Queries.Posts
 {
     public class GetPostQuery : IRequest<ApiBaseResponse>
     {

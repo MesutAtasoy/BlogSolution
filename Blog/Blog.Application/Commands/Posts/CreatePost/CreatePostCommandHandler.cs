@@ -12,18 +12,17 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blog.Application.Posts.Commands.CreatePost
+namespace Blog.Application.Commands.Posts.CreatePost
 {
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, ApiBaseResponse>, ICommand
     {
         private readonly BlogDbContext _context;
-        private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
-        public CreatePostCommandHandler(BlogDbContext context, IMediator mediator, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+
+        public CreatePostCommandHandler(BlogDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _context = context;
-            _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
         }
@@ -35,26 +34,18 @@ namespace Blog.Application.Posts.Commands.CreatePost
             if (userId != request.AuthorId)
                 return new ApiBaseResponse(HttpStatusCode.BadRequest, ApplicationStatusCode.AnErrorHasOccured, null, "Unauthorized Author");
 
-            var entity = new Post
-            {
-                Id = Guid.NewGuid(),
-                CategoryId = request.CategoryId,
-                Title = request.Title,
-                FriendlyTitle = UrlHelper.GetFriendlyTitle(request.Title),
-                AuthorId = userId,
-                CreatedBy = userId,
-                PostContent = request.PostContent,
-                IsActive = true
-            };
+            var post = new Post(request.Title, UrlHelper.GetFriendlyTitle(request.Title), request.PostContent,
+                request.AuthorId, request.CategoryId);
 
             if (request.Tags.Count > 0)
             {
                 foreach (var tag in request.Tags)
                 {
-                    Tag existingTag = _context.Tags.SingleOrDefault(c => c.Name == tag.ToLowerInvariant());
+                    var existingTag = _context.Tags.SingleOrDefault(c => c.Name == tag.ToLowerInvariant());
+
                     if (existingTag == null)
                     {
-                        entity.PostTags.Add(new PostTag
+                        post.AddPostTag(new PostTag
                         {
                             Tag = new Tag
                             {
@@ -65,19 +56,15 @@ namespace Blog.Application.Posts.Commands.CreatePost
                     }
                     else
                     {
-                        entity.PostTags.Add(new PostTag
-                        {
-                            Tag = existingTag
-                        });
+                        post.AddPostTag(new PostTag {Tag = existingTag});
                     }
                 }
             }
 
-            _context.Posts.Add(entity);
+            await _context.Posts.AddAsync(post, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-
-            return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, _mapper.Map<PostDto>(entity));
+            return new ApiBaseResponse(HttpStatusCode.OK, ApplicationStatusCode.Success, _mapper.Map<PostDto>(post));
         }
     }
 }
